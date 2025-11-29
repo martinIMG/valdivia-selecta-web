@@ -1,0 +1,15 @@
+# Ignorar carpeta de entorno virtual
+venv/
+env/
+
+# Ignorar base de datos local (En la nube usaremos PostgreSQL)
+db.sqlite3
+
+# Ignorar archivos compilados de Python
+*.pyc
+__pycache__/
+*/__pycache__/*
+
+# Ignorar archivos del sistema operativo
+.DS_Store
+Thumbs.db

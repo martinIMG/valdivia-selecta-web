@@ -1,0 +1,33 @@
+{% extends "admin/change_list.html" %}
+
+{% block result_list %}
+<div style="margin-bottom: 30px; display: flex; gap: 20px;">
+
+    <div
+        style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex: 1; border-left: 5px solid #10b981;">
+        <h3 style="margin: 0; color: #6b7280; font-size: 14px; text-transform: uppercase;">Ingresos Totales</h3>
+        <p style="margin: 10px 0 0; font-size: 28px; font-weight: bold; color: #111827;">
+            ${{ total_ingresos }}
+        </p>
+    </div>
+
+    <div
+        style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex: 1; border-left: 5px solid #3b82f6;">
+        <h3 style="margin: 0; color: #6b7280; font-size: 14px; text-transform: uppercase;">Pedidos Hoy</h3>
+        <p style="margin: 10px 0 0; font-size: 28px; font-weight: bold; color: #111827;">
+            {{ ventas_hoy }}
+        </p>
+    </div>
+
+    <div
+        style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex: 1; border-left: 5px solid #f59e0b;">
+        <h3 style="margin: 0; color: #6b7280; font-size: 14px; text-transform: uppercase;">Stock Crítico (&lt;3)</h3>
+        <p style="margin: 10px 0 0; font-size: 28px; font-weight: bold; color: #111827;">
+            {{ stock_bajo }} <span style="font-size: 14px; font-weight: normal; color: #6b7280;">productos</span>
+        </p>
+    </div>
+
+</div>
+
+{{ block.super }}
+{% endblock %}

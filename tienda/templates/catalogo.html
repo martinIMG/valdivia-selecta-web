@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valdivia Selecta | Catálogo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'valdivia-beige': '#F5F5DC',
+                        'valdivia-verde': '#556B2F', // Verde seco según diseño
+                        'valdivia-crema': '#FFFDD0',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 font-sans">
+
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-valdivia-verde tracking-widest">
+                VALDIVIA <span class="text-black">SELECTA</span>
+            </div>
+
+            <div class="flex items-center space-x-6">
+
+                {% if user.is_authenticated %}
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm font-bold text-gray-700">Hola, {{ user.first_name|default:user.email }}</span>
+                    <a href="{% url 'mis_pedidos' %}" class="text-xs text-blue-600 hover:underline">Mis Pedidos</a>
+                    <span class="text-gray-300">|</span>
+                    <a href="{% url 'logout' %}" class="text-xs text-red-500 hover:underline">Salir</a>
+                </div>
+                {% else %}
+                <a href="{% url 'login' %}" class="text-gray-600 hover:text-valdivia-verde flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    <span class="text-sm">Ingresar</span>
+                </a>
+                {% endif %}
+
+                <a href="{% url 'ver_carrito' %}" class="relative text-gray-600 hover:text-valdivia-verde">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span
+                        class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                        {{ cantidad_carrito }}
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        <nav class="bg-valdivia-verde text-white relative z-50">
+            <div class="container mx-auto px-4">
+                <ul class="flex justify-center space-x-12 text-sm font-medium uppercase tracking-wide">
+
+                    <li class="group relative py-3">
+                        <a href="#" class="hover:text-valdivia-crema transition flex items-center gap-1 cursor-pointer">
+                            Mujer
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </a>
+
+                        <div
+                            class="hidden group-hover:block absolute top-full left-0 bg-white text-gray-800 shadow-lg rounded-b-lg w-48 py-2 border-t-2 border-valdivia-crema">
+                            <a href="{% url 'catalogo' %}?q=mujer verano"
+                                class="block px-4 py-2 hover:bg-gray-100 hover:text-valdivia-verde">Verano</a>
+                            <a href="{% url 'catalogo' %}?q=mujer invierno"
+                                class="block px-4 py-2 hover:bg-gray-100 hover:text-valdivia-verde">Invierno</a>
+                            <a href="{% url 'catalogo' %}?q=mujer jeans"
+                                class="block px-4 py-2 hover:bg-gray-100 hover:text-valdivia-verde">Jeans</a>
+                            <a href="{% url 'catalogo' %}?q=mujer poleras"
+                                class="block px-4 py-2 hover:bg-gray-100 hover:text-valdivia-verde">Poleras</a>
+                            <a href="{% url 'catalogo' %}?q=mujer"
+                                class="block px-4 py-2 font-bold border-t mt-1 pt-2 hover:bg-gray-100">Ver Todo
+                                Mujer</a>
+                        </div>
+                    </li>
+
+                    <li class="group relative py-3">
+                        <a href="#" class="hover:text-valdivia-crema transition flex items-center gap-1 cursor-pointer">
+                            Niño
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </a>
+
+                        <div
+                            class="hidden group-hover:block absolute top-full left-0 bg-white text-gray-800 shadow-lg rounded-b-lg w-48 py-2 border-t-2 border-valdivia-crema">
+                            <a href="{% url 'catalogo' %}?q=niño verano"
+                                class="block px-4 py-2 hover:bg-gray-100 hover:text-valdivia-verde">Verano</a>
+                            <a href="{% url 'catalogo' %}?q=niño invierno"
+                                class="block px-4 py-2 hover:bg-gray-100 hover:text-valdivia-verde">Invierno</a>
+                            <a href="{% url 'catalogo' %}?q=niño disfraz"
+                                class="block px-4 py-2 hover:bg-gray-100 hover:text-valdivia-verde">Disfraces</a>
+                            <a href="{% url 'catalogo' %}?q=niño"
+                                class="block px-4 py-2 font-bold border-t mt-1 pt-2 hover:bg-gray-100">Ver Todo
+                                Niño</a>
+                        </div>
+                    </li>
+
+                    <li class="py-3">
+                        <a href="{% url 'catalogo' %}?q=premium" class="text-valdivia-crema font-bold hover:underline">
+                            Selección Premium
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Fardos Disponibles</h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+            {% for p in productos %}
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+
+                <a href="{% url 'detalle_producto' p.id %}"
+                    class="block h-64 bg-gray-200 overflow-hidden relative group">
+                    {% if p.imagen %}
+                    <img src="{{ p.imagen.url }}" alt="{{ p.nombre }}"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    {% else %}
+                    <div class="flex items-center justify-center h-full text-gray-400 bg-gray-100">
+                        <span>Sin Imagen</span>
+                    </div>
+                    {% endif %}
+
+                    <span
+                        class="absolute top-2 right-2 bg-valdivia-verde text-white text-xs font-bold px-2 py-1 rounded">
+                        {{ p.get_calidad_display }}
+                    </span>
+                </a>
+
+                <div class="p-4">
+                    <p class="text-sm text-gray-500 mb-1">{{ p.categoria.nombre }}</p>
+
+                    <a href="{% url 'detalle_producto' p.id %}" class="hover:text-valdivia-verde hover:underline">
+                        <h3 class="text-lg font-bold text-gray-900 truncate">{{ p.nombre }}</h3>
+                    </a>
+
+                    <p class="text-sm text-gray-600 mt-1">Peso: {{ p.peso_kg }} kg</p>
+
+                    <p class="text-xs text-gray-500 mt-2 h-10 overflow-hidden">
+                        {{ p.descripcion }}
+                    </p>
+
+                    <div class="mt-4 flex items-center justify-between">
+                        <span class="text-xl font-bold text-valdivia-verde">${{ p.precio }}</span>
+
+                        {% if p.stock > 0 %}
+                        <a href="{% url 'agregar_carrito' p.id %}"
+                            class="bg-black text-white px-3 py-2 rounded text-sm hover:bg-gray-800 transition inline-block">
+                            Añadir +
+                        </a>
+                        {% else %}
+                        <span class="text-red-500 text-sm font-bold">Agotado</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full text-center py-10">
+                <p class="text-gray-500 text-xl">No hay fardos disponibles en este momento.</p>
+                <p class="text-gray-400">¡Ingresa al panel de administrador para añadir stock!</p>
+            </div>
+            {% endfor %}
+
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-12 py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 Importadora Valdivia Selecta. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
